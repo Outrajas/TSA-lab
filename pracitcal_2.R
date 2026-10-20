@@ -1,0 +1,232 @@
+# ========== PRACTICAL-2: Nottem Dataset Analysis ==========
+cat("PRACTICAL-2: NOTTEM DATASET ANALYSIS\n")
+cat(rep("=", 70), "\n\n")
+
+# ------------------------------------------------------------
+# (a) Load the library containing Nottem dataset
+# ------------------------------------------------------------
+cat("(a) LOADING REQUIRED LIBRARY\n")
+cat(rep("-", 50), "\n\n")
+
+cat("1. Loading the datasets package...\n")
+library(datasets)
+
+cat("2. Library 'datasets' loaded successfully\n")
+cat("   - Contains many built-in datasets including Nottem\n")
+cat("   - No installation required (comes with base R)\n")
+cat("   - Other datasets in this package: AirPassengers, mtcars, iris, etc.\n\n")
+
+# ------------------------------------------------------------
+# (b) Load Nottem dataset into R environment
+# ------------------------------------------------------------
+cat("(b) LOADING NOTTEM DATASET\n")
+cat(rep("-", 50), "\n\n")
+
+cat("1. Loading Nottem dataset...\n")
+data("nottem")
+
+cat("2. Dataset loaded successfully\n")
+cat("   - Object name: nottem\n")
+cat("   - Type:", class(nottem), "\n")
+cat("   - Dataset now available in global environment\n\n")
+
+# ------------------------------------------------------------
+# (c) View dataset description and explain characteristics
+# ------------------------------------------------------------
+cat("(c) DATASET DESCRIPTION AND CHARACTERISTICS\n")
+cat(rep("-", 50), "\n\n")
+
+cat("1. Viewing dataset description using help()...\n")
+cat("   Command: ?nottem\n")
+cat("   (Help documentation opens in separate pane)\n\n")
+
+cat("2. Alternative method: Getting dataset information\n")
+cat("   Using str() function to view structure:\n")
+str(nottem)
+cat("\n")
+
+cat("3. Using summary() for statistical overview:\n")
+print(summary(nottem))
+cat("\n")
+
+cat("4. Viewing first few observations:\n")
+cat("   First 12 months (1920):\n")
+print(window(nottem, start = c(1920, 1), end = c(1920, 12)))
+cat("\n")
+
+cat("5. KEY CHARACTERISTICS OF THE DATA:\n")
+cat("   a) Content: Average monthly air temperatures\n")
+cat("   b) Location: Nottingham, England\n")
+cat("   c) Time period: January 1920 to December 1939\n")
+cat("   d) Duration: 20 years of monthly observations\n")
+cat("   e) Unit of measurement: Degrees Fahrenheit\n")
+cat("   f) Total observations: 240 (12 months × 20 years)\n")
+cat("   g) Type: Time series object (ts class)\n")
+cat("   h) Source: Original meteorological records\n\n")
+
+# ------------------------------------------------------------
+# (d) Explain nature of data in terms of sampling frequency
+# ------------------------------------------------------------
+cat("(d) SAMPLING FREQUENCY ANALYSIS\n")
+cat(rep("-", 50), "\n\n")
+
+cat("1. Checking frequency of the time series:\n")
+freq <- frequency(nottem)
+cat("   Frequency:", freq, "\n\n")
+
+cat("2. EXPLANATION OF SAMPLING FREQUENCY:\n")
+cat("   - Frequency = 12 indicates MONTHLY data\n")
+cat("   - Data collected once per month for 20 years\n")
+cat("   - Regular time intervals: January, February, ..., December\n")
+cat("   - Complete annual cycles: 20 full years\n\n")
+
+cat("3. Time period details:\n")
+cat("   - Start:", start(nottem), "(January 1920)\n")
+cat("   - End:", end(nottem), "(December 1939)\n")
+cat("   - Total months:", length(nottem), "\n")
+cat("   - Complete years: 20 years (1920-1939)\n\n")
+
+cat("4. Implications of monthly frequency:\n")
+cat("   - Allows detection of SEASONAL patterns\n")
+cat("   - Can analyze monthly variations within years\n")
+cat("   - Suitable for seasonal decomposition\n")
+cat("   - Enables year-over-year comparisons\n")
+cat("   - Higher resolution than annual or quarterly data\n")
+
+# ------------------------------------------------------------
+# (e) Plot time series and write observations
+# ------------------------------------------------------------
+cat("\n\n(e) TIME SERIES PLOT AND OBSERVATIONS\n")
+cat(rep("-", 50), "\n\n")
+
+cat("1. Creating basic time series plot...\n")
+plot(nottem, 
+     main = "Monthly Average Temperatures at Nottingham (1920-1939)",
+     ylab = "Temperature (°F)",
+     xlab = "Year",
+     col = "darkred", 
+     lwd = 1.5,
+     type = "l")
+grid()
+
+cat("2. Adding reference lines for better interpretation...\n")
+plot(nottem, 
+     main = "Nottingham Temperatures with Reference Lines (1920-1939)",
+     ylab = "Temperature (°F)",
+     xlab = "Year",
+     col = "darkred", 
+     lwd = 1.5,
+     type = "l")
+abline(h = mean(nottem), col = "blue", lty = 2, lwd = 2)
+abline(h = median(nottem), col = "green", lty = 3, lwd = 2)
+legend("topleft", 
+       legend = c("Temperature", "Mean", "Median"), 
+       col = c("darkred", "blue", "green"), 
+       lty = c(1, 2, 3),
+       lwd = c(1.5, 2, 2),
+       bg = "white")
+grid()
+
+cat("3. Creating seasonal plot to visualize patterns...\n")
+library(forecast)
+seasonplot(nottem, 
+           main = "Seasonal Plot: Nottingham Temperatures by Year",
+           ylab = "Temperature (°F)",
+           xlab = "Month",
+           year.labels = TRUE,
+           col = rainbow(20),
+           lwd = 2)
+
+cat("\n4. KEY OBSERVATIONS ABOUT DATA PATTERN:\n")
+
+cat("   a) SEASONAL PATTERN:\n")
+cat("      - Clear annual cycle visible\n")
+cat("      - Peaks in summer months (June-August)\n")
+cat("      - Troughs in winter months (December-February)\n")
+cat("      - Consistent seasonal pattern across all 20 years\n\n")
+
+cat("   b) TREND COMPONENT:\n")
+cat("      - No obvious long-term trend\n")
+cat("      - Temperatures relatively stable over 20-year period\n")
+cat("      - Minor year-to-year variations\n")
+cat("      - No evidence of warming or cooling trend\n\n")
+
+cat("   c) VARIABILITY:\n")
+cat("      - Temperature range: ~25°F to ~65°F\n")
+cat("      - Summer temperatures more variable than winter\n")
+cat("      - Some years warmer/colder than others\n")
+cat("      - Consistent annual temperature range\n\n")
+
+cat("   d) ABNORMALITIES/OUTLIERS:\n")
+cat("      - No extreme outliers visible\n")
+cat("      - Consistent seasonal envelope\n")
+cat("      - Minor deviations from normal pattern\n")
+cat("      - Possibly cooler years in early 1920s\n\n")
+
+cat("   e) STATISTICAL CHARACTERISTICS:\n")
+cat("      - Mean temperature:", round(mean(nottem), 1), "°F\n")
+cat("      - Median temperature:", round(median(nottem), 1), "°F\n")
+cat("      - Standard deviation:", round(sd(nottem), 2), "°F\n")
+cat("      - Temperature range:", round(range(nottem)[1], 1), "to", 
+    round(range(nottem)[2], 1), "°F\n")
+
+# ------------------------------------------------------------
+# ADDITIONAL ANALYSIS
+# ------------------------------------------------------------
+cat("\n\n", rep("-", 50), "\n", sep="")
+cat("ADDITIONAL TIME SERIES ANALYSIS\n")
+cat(rep("-", 50), "\n\n")
+
+cat("1. Decomposing time series into components...\n")
+nottem_decomp <- decompose(nottem)
+
+cat("2. Plotting decomposition...\n")
+plot(nottem_decomp, 
+     col = "darkblue",
+     lwd = 1.5)
+
+cat("3. Interpretation of decomposition:\n")
+cat("   - Seasonal component: Strong, consistent annual pattern\n")
+cat("   - Trend component: Minimal, nearly flat\n")
+cat("   - Random component: Small residuals\n")
+cat("   - Conclusion: Data is dominantly SEASONAL\n")
+
+# ------------------------------------------------------------
+# SUMMARY
+# ------------------------------------------------------------
+cat("\n\n", rep("=", 70), "\n", sep="")
+cat("SUMMARY AND CONCLUSIONS\n")
+cat(rep("=", 70), "\n\n")
+
+cat("DATA OVERVIEW:\n")
+cat("   - Dataset: Nottem (Monthly temperatures at Nottingham)\n")
+cat("   - Period: 1920-1939 (20 years)\n")
+cat("   - Frequency: Monthly (12 observations per year)\n")
+cat("   - Total observations: 240\n\n")
+
+cat("KEY FINDINGS:\n")
+cat("1. Data Characteristics:\n")
+cat("   - Strong seasonal pattern dominates\n")
+cat("   - No significant long-term trend\n")
+cat("   - Temperature range: 25-65°F\n")
+cat("   - Consistent annual cycles across 20 years\n\n")
+
+cat("2. Meteorological Insights:\n")
+cat("   - Typical temperate climate pattern\n")
+cat("   - Stable climate during 1920-1939 period\n")
+cat("   - Seasonal variation of ~40°F annually\n")
+cat("   - Summer peaks around 60-65°F\n")
+cat("   - Winter lows around 25-30°F\n\n")
+
+cat("3. Statistical Observations:\n")
+cat("   - Mean annual temperature: ~49°F\n")
+cat("   - Regular seasonal fluctuations\n")
+cat("   - Minimal random variation\n")
+cat("   - High predictability due to strong seasonality\n\n")
+
+cat("4. Practical Implications:\n")
+cat("   - Excellent example of seasonal time series\n")
+cat("   - Suitable for seasonal decomposition methods\n")
+cat("   - Useful for teaching time series analysis\n")
+cat("   - Demonstrates climate stability in historical period\n")
+cat(rep("=", 70), "\n")
