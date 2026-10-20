@@ -1,0 +1,32 @@
+﻿# --- R artifacts ---
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+*.Rproj.user
+
+# --- Compiled reports ---
+*.pdf
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# --- Data & results (keep scripts, ignore outputs) ---
+data/raw/
+data/processed/
+results/*.png
+results/*.csv
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
