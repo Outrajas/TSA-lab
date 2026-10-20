@@ -1,4 +1,4 @@
-﻿"""Expanding-window walk-forward backtesting."""
+"""Expanding-window walk-forward backtesting."""
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 

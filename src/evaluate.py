@@ -1,4 +1,4 @@
-﻿"""Metrics table + forecast plot."""
+"""Metrics table + forecast plot."""
 import os
 import pandas as pd
 import matplotlib.pyplot as plt

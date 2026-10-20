@@ -1,4 +1,4 @@
-﻿# Time-Series Forecasting: SARIMAX vs Seasonal-Naive on Mauna Loa CO2
+# Time-Series Forecasting: SARIMAX vs Seasonal-Naive on Mauna Loa CO2
 
 ## Problem
 Forecast monthly atmospheric CO2 concentration and evaluate whether a seasonal

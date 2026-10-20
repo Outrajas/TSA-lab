@@ -6,7 +6,9 @@ from statsmodels.datasets import co2
 def get_co2_monthly():
     """Mauna Loa CO2 (weekly, 1958-2001) resampled to monthly means."""
     data = co2.load_pandas().data
-    series = data["co2"].resample("MS").mean().dropna()
+    series = data["co2"].resample("MS").mean()
+    # Interpolate missing months instead of dropping them, then force freq
+    series = series.interpolate(method='time').asfreq('MS')
     series.name = "co2"
     return series
 

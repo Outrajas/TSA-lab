@@ -17,5 +17,6 @@ def sarimax_forecast(train, horizon, order=(1, 1, 1), seasonal_order=(1, 1, 1, 1
         enforce_stationarity=False,
         enforce_invertibility=False,
     )
-    results = model.fit(disp=False)
-    return results.forecast(steps=horizon).values
+    # Added maxiter=500 to fix ConvergenceWarning
+    results = model.fit(disp=False, maxiter=500)
+    return np.asarray(results.forecast(steps=horizon))

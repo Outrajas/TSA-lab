@@ -1,0 +1,3 @@
+Model,MAE,RMSE,MAPE
+Seasonal Naive,1.788,1.862,0.486
+SARIMAX,0.528,0.616,0.144
